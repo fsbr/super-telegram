@@ -8,11 +8,11 @@ import matplotlib.pyplot as plt
 plt.style.use('fivethirtyeight')
 
 
-Tx = np.linspace(0,5,5)
+Tx = np.linspace(0,0.22,5)
 i = 0
 for T in Tx:
-    num = [8, (-3*np.exp(-4*T)-5)]
-    den = [12, (-7*np.exp(-4*T) -5)]
+    num = np.array([10-10*np.exp(-T)])
+    den = np.array([1, 10-11*np.exp(-T)])
 
     dtf = sig.dlti(num,den)
     t,y = sig.dstep((dtf),n=1000)
@@ -25,7 +25,7 @@ for T in Tx:
     colorIndicator = "b"
     markerIndicator = "o"
 
-    if abs(poleLocation)>1:
+    if np.abs(poleLocation)>1:
         colorIndicator = "r"
         markerIndicator = "x"
     print("pole location",poleLocation)
@@ -40,6 +40,8 @@ for T in Tx:
     xarr[1].set_xlabel("pole magnitude is %s"%poleLocation)
     xarr[1].set_xlim([-2,2])
 
+    # when you think you're ready to make the GIF, 
+    # uncomment this line
     # plt.savefig('animation%s.png'%i)
     plt.show()
     i+=1
